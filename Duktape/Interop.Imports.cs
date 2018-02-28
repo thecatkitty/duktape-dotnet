@@ -1,176 +1,175 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace Duktape
-{
-    public partial class Interop
-    {
-        /*
-         *  Context management
-         */
-        [DllImport("libduktape.dll")]
-        public static extern UIntPtr duk_create_heap(Delegate alloc_func, Delegate realloc_func, Delegate free_func, UIntPtr heap_data, Delegate fatal_handler);
-        [DllImport("libduktape.dll")]
-        public static extern void duk_destroy_heap(UIntPtr ctx);
+namespace Duktape {
 
-        /*
-         *  Memory management
-         *
-         *  Raw functions have no side effects (cannot trigger GC).
-         */
+  public partial class Interop {
+    /*
+     *  Context management
+     */
+    [DllImport("libduktape.dll")]
+    public static extern UIntPtr duk_create_heap(Delegate alloc_func, Delegate realloc_func, Delegate free_func, UIntPtr heap_data, Delegate fatal_handler);
+    [DllImport("libduktape.dll")]
+    public static extern void duk_destroy_heap(UIntPtr ctx);
 
-        /*
-         *  Error handling
-         */
+    /*
+     *  Memory management
+     *
+     *  Raw functions have no side effects (cannot trigger GC).
+     */
 
-        /*
-         *  Other state related functions
-         */
+    /*
+     *  Error handling
+     */
 
-        /*
-         *  Stack management
-         */
+    /*
+     *  Other state related functions
+     */
 
-        /*
-         *  Stack manipulation (other than push/pop)
-         */
+    /*
+     *  Stack management
+     */
 
-        /*
-         *  Push operations
-         *
-         *  Push functions return the absolute (relative to bottom of frame)
-         *  position of the pushed value for convenience.
-         *
-         *  Note: duk_dup() is technically a push.
-         */
+    /*
+     *  Stack manipulation (other than push/pop)
+     */
 
-        /*
-         *  Pop operations
-         */
+    /*
+     *  Push operations
+     *
+     *  Push functions return the absolute (relative to bottom of frame)
+     *  position of the pushed value for convenience.
+     *
+     *  Note: duk_dup() is technically a push.
+     */
 
-
-        /*
-         *  Type checks
-         *
-         *  duk_is_none(), which would indicate whether index it outside of stack,
-         *  is not needed; duk_is_valid_index() gives the same information.
-         */
-
-        /*
-         *  Get operations: no coercion, returns default value for invalid
-         *  indices and invalid value types.
-         *
-         *  duk_get_undefined() and duk_get_null() would be pointless and
-         *  are not included.
-         */
-        [DllImport("libduktape.dll")]
-        public static extern int duk_get_int(UIntPtr ctx, int idx);
-
-        /*
-         *  Get-with-explicit default operations: like get operations but with an
-         *  explicit default value.
-         */
-
-        /*
-         *  Opt operations: like require operations but with an explicit default value
-         *  when value is undefined or index is invalid, null and non-matching types
-         *  cause a TypeError.
-         */
+    /*
+     *  Pop operations
+     */
 
 
-        /*
-         *  Require operations: no coercion, throw error if index or type
-         *  is incorrect.  No defaulting.
-         */
+    /*
+     *  Type checks
+     *
+     *  duk_is_none(), which would indicate whether index it outside of stack,
+     *  is not needed; duk_is_valid_index() gives the same information.
+     */
 
-        /*
-         *  Coercion operations: in-place coercion, return coerced value where
-         *  applicable.  If index is invalid, throw error.  Some coercions may
-         *  throw an expected error (e.g. from a toString() or valueOf() call)
-         *  or an internal error (e.g. from out of memory).
-         */
+    /*
+     *  Get operations: no coercion, returns default value for invalid
+     *  indices and invalid value types.
+     *
+     *  duk_get_undefined() and duk_get_null() would be pointless and
+     *  are not included.
+     */
+    [DllImport("libduktape.dll")]
+    public static extern int duk_get_int(UIntPtr ctx, int idx);
 
-        /*
-         *  Value length
-         */
+    /*
+     *  Get-with-explicit default operations: like get operations but with an
+     *  explicit default value.
+     */
 
-        /*
-         *  Misc conversion
-         */
+    /*
+     *  Opt operations: like require operations but with an explicit default value
+     *  when value is undefined or index is invalid, null and non-matching types
+     *  cause a TypeError.
+     */
 
-        /*
-         *  Buffer
-         */
 
-        /*
-         *  Property access
-         *
-         *  The basic function assumes key is on stack.  The _string variant takes
-         *  a C string as a property name, while the _index variant takes an array
-         *  index as a property name (e.g. 123 is equivalent to the key "123").
-         */
+    /*
+     *  Require operations: no coercion, throw error if index or type
+     *  is incorrect.  No defaulting.
+     */
 
-        /*
-         *  Inspection
-         */
+    /*
+     *  Coercion operations: in-place coercion, return coerced value where
+     *  applicable.  If index is invalid, throw error.  Some coercions may
+     *  throw an expected error (e.g. from a toString() or valueOf() call)
+     *  or an internal error (e.g. from out of memory).
+     */
 
-        /*
-         *  Object prototype
-         */
+    /*
+     *  Value length
+     */
 
-        /*
-         *  Object finalizer
-         */
+    /*
+     *  Misc conversion
+     */
 
-        /*
-         *  Global object
-         */
+    /*
+     *  Buffer
+     */
 
-        /*
-         *  Duktape/C function magic value
-         */
+    /*
+     *  Property access
+     *
+     *  The basic function assumes key is on stack.  The _string variant takes
+     *  a C string as a property name, while the _index variant takes an array
+     *  index as a property name (e.g. 123 is equivalent to the key "123").
+     */
 
-        /*
-         *  Module helpers: put multiple function or constant properties
-         */
+    /*
+     *  Inspection
+     */
 
-        /*
-         *  Object operations
-         */
+    /*
+     *  Object prototype
+     */
 
-        /*
-         *  String manipulation
-         */
+    /*
+     *  Object finalizer
+     */
 
-        /*
-         *  Ecmascript operators
-         */
+    /*
+     *  Global object
+     */
 
-        /*
-         *  Function (method) calls
-         */
+    /*
+     *  Duktape/C function magic value
+     */
 
-        /*
-         *  Compilation and evaluation
-         */
-        [DllImport("libduktape.dll")]
-        public static extern int duk_eval_raw(UIntPtr ctx, [MarshalAs(UnmanagedType.LPStr)] string src_buffer, uint src_length, uint flags);
+    /*
+     *  Module helpers: put multiple function or constant properties
+     */
 
-        /*
-         *  Bytecode load/dump
-         */
+    /*
+     *  Object operations
+     */
 
-        /*
-         *  Debugging
-         */
+    /*
+     *  String manipulation
+     */
 
-        /*
-         *  Debugger (debug protocol)
-         */
+    /*
+     *  Ecmascript operators
+     */
 
-        /*
-         *  Time handling
-         */
+    /*
+     *  Function (method) calls
+     */
 
-    }
+    /*
+     *  Compilation and evaluation
+     */
+    [DllImport("libduktape.dll")]
+    public static extern int duk_eval_raw(UIntPtr ctx, [MarshalAs(UnmanagedType.LPStr)] string src_buffer, uint src_length, uint flags);
+
+    /*
+     *  Bytecode load/dump
+     */
+
+    /*
+     *  Debugging
+     */
+
+    /*
+     *  Debugger (debug protocol)
+     */
+
+    /*
+     *  Time handling
+     */
+  }
+
 }
