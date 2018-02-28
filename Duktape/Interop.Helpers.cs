@@ -7,7 +7,7 @@ namespace Duktape
     {
         public static UIntPtr duk_create_heap_default()
         {
-            return duk_create_heap(UIntPtr.Zero, UIntPtr.Zero, UIntPtr.Zero, UIntPtr.Zero, UIntPtr.Zero);
+            return duk_create_heap(null, null, null, UIntPtr.Zero, null);
         }
 
         public static void duk_eval_string(UIntPtr ctx, string src)

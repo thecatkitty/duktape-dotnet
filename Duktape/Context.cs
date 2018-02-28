@@ -9,12 +9,13 @@ namespace Duktape
         private UIntPtr _ctx;
         public static implicit operator UIntPtr(Context ctx) => ctx._ctx;
 
+
         public Context()
         {
             _ctx = Interop.duk_create_heap_default();
         }
 
-        public Context(UIntPtr allocFunc, UIntPtr reallocFunc, UIntPtr freeFunc, UIntPtr heapData, UIntPtr fatalHandler)
+        public Context(Delegate allocFunc, Delegate reallocFunc, Delegate freeFunc, UIntPtr heapData, Delegate fatalHandler)
         {
             _ctx = Interop.duk_create_heap(allocFunc, reallocFunc, freeFunc, heapData, fatalHandler);
         }
