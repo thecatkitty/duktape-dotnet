@@ -414,6 +414,12 @@
     <ClInclude Include="duk_unicode.h" />
     <ClInclude Include="duk_util.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="AUTHORS.rst" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="LICENSE.txt" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
