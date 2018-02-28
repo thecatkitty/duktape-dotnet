@@ -2,6 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard1.1</TargetFramework>
+    <Description>Duktape ECMAScript engine for .NET</Description>
+    <Company>Celones</Company>
+    <Product>Duktape.NET</Product>
+    <Copyright>© 2018 Mateusz Karcz. Licensed according to the MIT License.</Copyright>
+    <AssemblyVersion>0.1.0.0</AssemblyVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Properties\" />
+  </ItemGroup>
 
 </Project>
