@@ -138,7 +138,7 @@
 #if !defined(DUKTAPE_H_INCLUDED)
 #define DUKTAPE_H_INCLUDED
 
-#define DUK_SINGLE_FILE
+#undef DUK_SINGLE_FILE
 
 /*
  *  BEGIN PUBLIC API
