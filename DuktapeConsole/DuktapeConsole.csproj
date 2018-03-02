@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{97CCF405-8A90-4536-8153-FA2549A38241}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>DuktapeTest</RootNamespace>
-    <AssemblyName>DuktapeTest</AssemblyName>
+    <RootNamespace>DuktapeConsole</RootNamespace>
+    <AssemblyName>DuktapeConsole</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
