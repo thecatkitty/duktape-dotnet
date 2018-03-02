@@ -8,7 +8,12 @@ namespace DuktapeTest {
     static void Main(string[] args) {
       using(var js = new Duktape.Context()) {
         js.Eval("1+2");
-        Console.WriteLine(String.Format("1+2={0}", js.GetInt(-1)));
+        var i = js.GetInt();
+        Console.WriteLine(String.Format("1+2={0}", i));
+
+        js.Eval("Array(16).join('a'-1) + ' Batmaaaan!'");
+        var s = js.GetString();
+        Console.WriteLine(s);
       }
 
       Console.ReadKey();
