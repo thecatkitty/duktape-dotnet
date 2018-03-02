@@ -1,6 +1,8 @@
 ﻿using System;
 
 namespace Duktape {
+
+  public class Undefined { }
   
   public class Context : IDisposable {
     private IntPtr _ctx;
@@ -11,6 +13,9 @@ namespace Duktape {
      */
     public Context() {
       _ctx = Interop.duk_create_heap_default();
+
+      if(_ctx == IntPtr.Zero)
+        throw new OutOfMemoryException("Couldn't create Duktape context");
     }
 
     public Context(
@@ -34,27 +39,11 @@ namespace Duktape {
       Interop.duk_resume(_ctx, state);
     }
 
-    /*
-     *  Memory management
-     *
-     *  Raw functions have no side effects (cannot trigger GC).
-     */
 
-    /*
-     *  Error handling
-     */
-
-    /*
-     *  Other state related functions
-     */
-
-    /*
-     *  Stack management
-     */
-
-    /*
-     *  Stack manipulation (other than push/pop)
-     */
+    public object Run(string code) {
+      Interop.duk_eval_string(_ctx, code);
+      return Pop();
+    }
 
     /*
      *  Push operations
@@ -99,152 +88,47 @@ namespace Duktape {
     public void Push(string value) {
       Interop.duk_push_string(_ctx, value);
     }
-
-    /*
-     *  Pop operations
-     */
-
-    /*
-     *  Type checks
-     *
-     *  duk_is_none(), which would indicate whether index it outside of stack,
-     *  is not needed; duk_is_valid_index() gives the same information.
-     */
-
-    /*
-     *  Get operations: no coercion, returns default value for invalid
-     *  indices and invalid value types.
-     *
-     *  duk_get_undefined() and duk_get_null() would be pointless and
-     *  are not included.
-     */
-    public bool GetBoolean(int index = -1) {
-      return Interop.duk_get_boolean(_ctx, index);
-    }
-
-    public double GetDouble(int index = -1) {
-      return Interop.duk_get_number(_ctx, index);
-    }
-
-    public int GetInt(int index = -1) {
-      return Interop.duk_get_int(_ctx, index);
-    }
-
-    public uint GetUInt(int index = -1) {
-      return Interop.duk_get_uint(_ctx, index);
-    }
-
-    public string GetString(int index = -1) {
-      return System.Runtime.InteropServices.Marshal.PtrToStringAnsi(
-        Interop.duk_get_string(_ctx, index));
-    }
-
-    /*
-     *  Get-with-explicit default operations: like get operations but with an
-     *  explicit default value.
-     */
-
-    /*
-     *  Opt operations: like require operations but with an explicit default value
-     *  when value is undefined or index is invalid, null and non-matching types
-     *  cause a TypeError.
-     */
-
-
-    /*
-     *  Require operations: no coercion, throw error if index or type
-     *  is incorrect.  No defaulting.
-     */
-
-    /*
-     *  Coercion operations: in-place coercion, return coerced value where
-     *  applicable.  If index is invalid, throw error.  Some coercions may
-     *  throw an expected error (e.g. from a toString() or valueOf() call)
-     *  or an internal error (e.g. from out of memory).
-     */
-
-    /*
-     *  Value length
-     */
-
-    /*
-     *  Misc conversion
-     */
-
-    /*
-     *  Buffer
-     */
-
-    /*
-     *  Property access
-     *
-     *  The basic function assumes key is on stack.  The _string variant takes
-     *  a C string as a property name, while the _index variant takes an array
-     *  index as a property name (e.g. 123 is equivalent to the key "123").
-     */
-
-    /*
-     *  Inspection
-     */
-
-    /*
-     *  Object prototype
-     */
-
-    /*
-     *  Object finalizer
-     */
-
-    /*
-     *  Global object
-     */
-
-    /*
-     *  Duktape/C function magic value
-     */
-
-    /*
-     *  Module helpers: put multiple function or constant properties
-     */
-
-    /*
-     *  Object operations
-     */
-
-    /*
-     *  String manipulation
-     */
-
-    /*
-     *  Ecmascript operators
-     */
-
+    
     /*
      *  Function (method) calls
      */
-
-    /*
-     *  Compilation and evaluation
-     */
-    public void Eval(string str) {
-      Interop.duk_eval_string(_ctx, str);
+    public void Call(int nargs) {
+      Interop.duk_call(_ctx, nargs);
     }
+    
 
-    /*
-     *  Bytecode load/dump
-     */
+    private object Pop() {
+      object value = null;
 
-    /*
-     *  Debugging
-     */
+      if(Interop.duk_is_undefined(_ctx, -1))
+        value = new Undefined();
 
-    /*
-     *  Debugger (debug protocol)
-     */
+      if(Interop.duk_is_null(_ctx, -1))
+        value = null;
 
-    /*
-     *  Time handling
-     */
+      else if(Interop.duk_is_boolean(_ctx, -1))
+        value = Interop.duk_get_boolean(_ctx, -1);
+
+      else if(Interop.duk_is_number(_ctx, -1)) {
+        var number = Interop.duk_get_number(_ctx, -1);
+        if((number % 1) == 0)
+          value = System.Convert.ToInt32(number);
+        else
+          value = number;
+      }
+
+      else if(Interop.duk_is_string(_ctx, -1))
+        value = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(
+        Interop.duk_to_string(_ctx, -1));
+
+      else if(Interop.duk_is_array(_ctx, -1))
+        throw new NotImplementedException("JS to C# Arrays not implemented");
+
+      else if(Interop.duk_is_object(_ctx, -1))
+        throw new NotImplementedException("JS to C# Objects not implemented");
+
+      return value;
+    }
   }
 
 }
