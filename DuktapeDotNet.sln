@@ -5,9 +5,11 @@ VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "libduktape", "libduktape\libduktape.vcxproj", "{7526802D-9C4C-467E-890D-D90401436B68}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Duktape", "Duktape\Duktape.csproj", "{1A9762B5-2060-4141-8EE9-7853EFBC4201}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Duktape", "Duktape\Duktape.csproj", "{1A9762B5-2060-4141-8EE9-7853EFBC4201}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuktapeTest", "DuktapeTest\DuktapeTest.csproj", "{97CCF405-8A90-4536-8153-FA2549A38241}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuktapeConsole", "DuktapeConsole\DuktapeConsole.csproj", "{97CCF405-8A90-4536-8153-FA2549A38241}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DuktapeTests", "DuktapeTests\DuktapeTests.csproj", "{60B52F15-0580-404D-95B2-C636E348FDC5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,6 +83,26 @@ Global
 		{97CCF405-8A90-4536-8153-FA2549A38241}.Release|x64.Build.0 = Release|Any CPU
 		{97CCF405-8A90-4536-8153-FA2549A38241}.Release|x86.ActiveCfg = Release|Any CPU
 		{97CCF405-8A90-4536-8153-FA2549A38241}.Release|x86.Build.0 = Release|Any CPU
+		{60B52F15-0580-404D-95B2-C636E348FDC5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{60B52F15-0580-404D-95B2-C636E348FDC5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{60B52F15-0580-404D-95B2-C636E348FDC5}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{60B52F15-0580-404D-95B2-C636E348FDC5}.Debug|ARM.Build.0 = Debug|Any CPU
+		{60B52F15-0580-404D-95B2-C636E348FDC5}.Debug|ARM64.ActiveCfg = Debug|Any CPU
+		{60B52F15-0580-404D-95B2-C636E348FDC5}.Debug|ARM64.Build.0 = Debug|Any CPU
+		{60B52F15-0580-404D-95B2-C636E348FDC5}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{60B52F15-0580-404D-95B2-C636E348FDC5}.Debug|x64.Build.0 = Debug|Any CPU
+		{60B52F15-0580-404D-95B2-C636E348FDC5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{60B52F15-0580-404D-95B2-C636E348FDC5}.Debug|x86.Build.0 = Debug|Any CPU
+		{60B52F15-0580-404D-95B2-C636E348FDC5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{60B52F15-0580-404D-95B2-C636E348FDC5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{60B52F15-0580-404D-95B2-C636E348FDC5}.Release|ARM.ActiveCfg = Release|Any CPU
+		{60B52F15-0580-404D-95B2-C636E348FDC5}.Release|ARM.Build.0 = Release|Any CPU
+		{60B52F15-0580-404D-95B2-C636E348FDC5}.Release|ARM64.ActiveCfg = Release|Any CPU
+		{60B52F15-0580-404D-95B2-C636E348FDC5}.Release|ARM64.Build.0 = Release|Any CPU
+		{60B52F15-0580-404D-95B2-C636E348FDC5}.Release|x64.ActiveCfg = Release|Any CPU
+		{60B52F15-0580-404D-95B2-C636E348FDC5}.Release|x64.Build.0 = Release|Any CPU
+		{60B52F15-0580-404D-95B2-C636E348FDC5}.Release|x86.ActiveCfg = Release|Any CPU
+		{60B52F15-0580-404D-95B2-C636E348FDC5}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
