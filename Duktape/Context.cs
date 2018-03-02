@@ -1,8 +1,7 @@
 ﻿using System;
-using System.Runtime;
 
 namespace Duktape {
-
+  
   public class Context : IDisposable {
     private IntPtr _ctx;
     public static implicit operator IntPtr(Context ctx) => ctx._ctx;
@@ -25,13 +24,13 @@ namespace Duktape {
       Interop.duk_destroy_heap(_ctx);
     }
 
-    public Interop.duk_thread_state Suspend() {
+    public ThreadState Suspend() {
       Interop.duk_thread_state state;
       Interop.duk_suspend(_ctx, ref state);
-      return state;
+      return new ThreadState(state);
     }
 
-    public void Resume(Interop.duk_thread_state state) {
+    public void Resume(ThreadState state) {
       Interop.duk_resume(_ctx, state);
     }
 
