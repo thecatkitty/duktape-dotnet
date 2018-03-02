@@ -162,6 +162,10 @@ namespace Duktape {
       duk_eval_raw(ctx, src, 0, DUK_COMPILE_EVAL | DUK_COMPILE_NOSOURCE | DUK_COMPILE_STRLEN | DUK_COMPILE_NOFILENAME);
     }
 
+    public static void duk_compile(IntPtr ctx, uint flags) {
+      duk_compile_raw(ctx, IntPtr.Zero, 0, 2 | flags);
+    }
+
     /*
      *  Bytecode load/dump
      */

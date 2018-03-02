@@ -147,7 +147,7 @@ namespace Duktape {
     [DllImport("libduktape.dll")]
     public static extern void duk_push_uint(IntPtr ctx, uint val);
     [DllImport("libduktape.dll", CharSet = CharSet.Ansi)]
-    public static extern string duk_push_string(IntPtr ctx,
+    public static extern IntPtr duk_push_string(IntPtr ctx,
       [MarshalAs(UnmanagedType.LPStr)] string str);
     [DllImport("libduktape.dll", CharSet = CharSet.Ansi)]
     public static extern string duk_push_lstring(IntPtr ctx,
@@ -351,6 +351,36 @@ namespace Duktape {
      *  throw an expected error (e.g. from a toString() or valueOf() call)
      *  or an internal error (e.g. from out of memory).
      */
+    [DllImport("libduktape.dll")]
+    public static extern void duk_to_undefined(IntPtr ctx, int idx);
+    [DllImport("libduktape.dll")]
+    public static extern void duk_to_null(IntPtr ctx, int idx);
+    [DllImport("libduktape.dll")]
+    public static extern bool duk_to_boolean(IntPtr ctx, int idx);
+    [DllImport("libduktape.dll")]
+    public static extern double duk_to_number(IntPtr ctx, int idx);
+    [DllImport("libduktape.dll")]
+    public static extern int duk_to_int(IntPtr ctx, int idx);
+    [DllImport("libduktape.dll")]
+    public static extern uint duk_to_uint(IntPtr ctx, int idx);
+    [DllImport("libduktape.dll")]
+    public static extern Int32 duk_to_int32(IntPtr ctx, int idx);
+    [DllImport("libduktape.dll")]
+    public static extern UInt32 duk_to_uint32(IntPtr ctx, int idx);
+    [DllImport("libduktape.dll")]
+    public static extern UInt16 duk_to_uint16(IntPtr ctx, int idx);
+    [DllImport("libduktape.dll")]
+    public static extern IntPtr duk_to_string(IntPtr ctx, int idx);
+    [DllImport("libduktape.dll")]
+    public static extern IntPtr duk_to_lstring(IntPtr ctx, int idx, ref uint out_len);
+    [DllImport("libduktape.dll")]
+    public static extern IntPtr duk_to_buffer_raw(IntPtr ctx, int idx, ref uint out_size, uint flags);
+    [DllImport("libduktape.dll")]
+    public static extern IntPtr duk_to_pointer(IntPtr ctx, int idx);
+    [DllImport("libduktape.dll")]
+    public static extern void duk_to_object(IntPtr ctx, int idx);
+    [DllImport("libduktape.dll")]
+    public static extern void duk_to_primitive(IntPtr ctx, int idx, int hint);
 
     /*
      *  Value length
@@ -411,6 +441,8 @@ namespace Duktape {
     /*
      *  Function (method) calls
      */
+    [DllImport("libduktape.dll")]
+    public static extern void duk_call(IntPtr ctx, int nargs);
 
     /*
      *  Compilation and evaluation
@@ -418,6 +450,10 @@ namespace Duktape {
     [DllImport("libduktape.dll")]
     public static extern int duk_eval_raw(
       IntPtr ctx, [MarshalAs(UnmanagedType.LPStr)] string src_buffer,
+      uint src_length, uint flags);
+    [DllImport("libduktape.dll")]
+    public static extern int duk_compile_raw(
+      IntPtr ctx, IntPtr src_buffer,
       uint src_length, uint flags);
 
     /*
