@@ -11,6 +11,14 @@ namespace DuktapeConsole {
         .Version.ToString();
 
       using(var js = new Duktape.Context()) {
+        object[] objCelones = {
+          "Duktape.NET",
+          "No spoko.",
+          new object[] { 2, 3.14 }
+        };
+
+        js.SetParameter("Celones", objCelones);
+
         var line = "";
         while(true) {
           Console.Write("> ");
