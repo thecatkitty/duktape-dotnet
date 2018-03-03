@@ -401,6 +401,85 @@ namespace Duktape {
      *  a C string as a property name, while the _index variant takes an array
      *  index as a property name (e.g. 123 is equivalent to the key "123").
      */
+    [DllImport("libduktape.dll")]
+    public static extern bool duk_get_prop(IntPtr ctx, int obj_idx);
+    [DllImport("libduktape.dll")]
+    public static extern bool duk_get_prop_string(
+      IntPtr ctx, int obj_idx, [MarshalAs(UnmanagedType.LPStr)] string key);
+    [DllImport("libduktape.dll")]
+    public static extern bool duk_get_prop_lstring(
+      IntPtr ctx, int obj_idx, [MarshalAs(UnmanagedType.LPStr)] string key,
+      uint key_len);
+    [DllImport("libduktape.dll")]
+    public static extern bool duk_get_prop_index(
+      IntPtr ctx, int obj_idx, uint arr_idx);
+    [DllImport("libduktape.dll")]
+    public static extern bool duk_get_prop_heapptr(
+      IntPtr ctx, int obj_idx, IntPtr ptr);
+    [DllImport("libduktape.dll")]
+    public static extern bool duk_put_prop(IntPtr ctx, int obj_idx);
+    [DllImport("libduktape.dll")]
+    public static extern bool duk_put_prop_string(
+      IntPtr ctx, int obj_idx, [MarshalAs(UnmanagedType.LPStr)] string key);
+    [DllImport("libduktape.dll")]
+    public static extern bool duk_put_prop_lstring(
+      IntPtr ctx, int obj_idx, [MarshalAs(UnmanagedType.LPStr)] string key,
+      uint key_len);
+    [DllImport("libduktape.dll")]
+    public static extern bool duk_put_prop_index(
+      IntPtr ctx, int obj_idx, uint arr_idx);
+    [DllImport("libduktape.dll")]
+    public static extern bool duk_put_prop_heapptr(
+      IntPtr ctx, int obj_idx, IntPtr ptr);
+    [DllImport("libduktape.dll")]
+    public static extern bool duk_del_prop(IntPtr ctx, int obj_idx);
+    [DllImport("libduktape.dll")]
+    public static extern bool duk_del_prop_string(
+      IntPtr ctx, int obj_idx, [MarshalAs(UnmanagedType.LPStr)] string key);
+    [DllImport("libduktape.dll")]
+    public static extern bool duk_del_prop_lstring(IntPtr ctx, int obj_idx,
+      [MarshalAs(UnmanagedType.LPStr)] string key, uint key_len);
+    [DllImport("libduktape.dll")]
+    public static extern bool duk_del_prop_index(
+      IntPtr ctx, int obj_idx, uint arr_idx);
+    [DllImport("libduktape.dll")]
+    public static extern bool duk_del_prop_heapptr(
+      IntPtr ctx, int obj_idx, IntPtr ptr);
+    [DllImport("libduktape.dll")]
+    public static extern bool duk_has_prop(IntPtr ctx, int obj_idx);
+    [DllImport("libduktape.dll")]
+    public static extern bool duk_has_prop_string(
+      IntPtr ctx, int obj_idx, [MarshalAs(UnmanagedType.LPStr)] string key);
+    [DllImport("libduktape.dll")]
+    public static extern bool duk_has_prop_lstring(
+      IntPtr ctx, int obj_idx, [MarshalAs(UnmanagedType.LPStr)] string key,
+      uint key_len);
+    [DllImport("libduktape.dll")]
+    public static extern bool duk_has_prop_index(
+      IntPtr ctx, int obj_idx, uint arr_idx);
+    [DllImport("libduktape.dll")]
+    public static extern bool duk_has_prop_heapptr(
+      IntPtr ctx, int obj_idx, IntPtr ptr);
+
+    [DllImport("libduktape.dll")]
+    public static extern void duk_get_prop_desc(
+      IntPtr ctx, int obj_idx, uint flags);
+    [DllImport("libduktape.dll")]
+    public static extern void duk_def_prop(
+      IntPtr ctx, int obj_idx, uint flags);
+
+    [DllImport("libduktape.dll")]
+    public static extern bool duk_get_global_string(
+      IntPtr ctx, [MarshalAs(UnmanagedType.LPStr)] string key);
+    [DllImport("libduktape.dll")]
+    public static extern bool duk_get_global_lstring(
+      IntPtr ctx, [MarshalAs(UnmanagedType.LPStr)] string key, uint key_len);
+    [DllImport("libduktape.dll")]
+    public static extern bool duk_put_global_string(
+      IntPtr ctx, [MarshalAs(UnmanagedType.LPStr)] string key);
+    [DllImport("libduktape.dll")]
+    public static extern bool duk_put_global_lstring(
+      IntPtr ctx, [MarshalAs(UnmanagedType.LPStr)] string key, uint key_len);
 
     /*
      *  Inspection

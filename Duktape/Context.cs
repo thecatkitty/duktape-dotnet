@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Reflection;
 
 namespace Duktape {
 
@@ -45,49 +46,14 @@ namespace Duktape {
       return Pop();
     }
 
-    /*
-     *  Push operations
-     *
-     *  Push functions return the absolute (relative to bottom of frame)
-     *  position of the pushed value for convenience.
-     *
-     *  Note: duk_dup() is technically a push.
-     */
-    public void PushUndefined() {
-      Interop.duk_push_undefined(_ctx);
-    }
 
-    public void PushNull() {
-      Interop.duk_push_null(_ctx);
-    }
+    public object GetParameter(string name) => Run(name);
 
-    public void PushNaN() {
-      Interop.duk_push_nan(_ctx);
+    public void SetParameter(string name, object obj) {
+      Push(obj);
+      Interop.duk_put_global_string(_ctx, name);
     }
-
-    public void Push(bool value) {
-      Interop.duk_push_boolean(_ctx, value);
-    }
-
-    public void Push(double value) {
-      if(Double.IsNaN(value))
-        Interop.duk_push_nan(_ctx);
-
-      else
-        Interop.duk_push_number(_ctx, value);
-    }
-
-    public void Push(int value) {
-      Interop.duk_push_int(_ctx, value);
-    }
-
-    public void Push(uint value) {
-      Interop.duk_push_uint(_ctx, value);
-    }
-
-    public void Push(string value) {
-      Interop.duk_push_string(_ctx, value);
-    }
+    
     
     /*
      *  Function (method) calls
@@ -121,14 +87,63 @@ namespace Duktape {
         value = System.Runtime.InteropServices.Marshal.PtrToStringAnsi(
         Interop.duk_to_string(_ctx, -1));
 
-      else if(Interop.duk_is_array(_ctx, -1))
+      else if(Interop.duk_is_array(_ctx, -1)) {
+        Interop.duk_pop(_ctx);
         throw new NotImplementedException("JS to C# Arrays not implemented");
+      }
 
-      else if(Interop.duk_is_object(_ctx, -1))
+      else if(Interop.duk_is_object(_ctx, -1)) {
+        Interop.duk_pop(_ctx);
         throw new NotImplementedException("JS to C# Objects not implemented");
+      }
 
+      Interop.duk_pop(_ctx);
       return value;
     }
+
+    private void Push(object obj) {
+      if(obj == null)
+        Interop.duk_push_null(_ctx);
+
+      else if(obj.GetType() == typeof(Undefined))
+        Interop.duk_push_undefined(_ctx);
+
+      else if(obj.GetType() == typeof(bool))
+        Interop.duk_push_boolean(_ctx, (bool)obj);
+
+      else if(obj.GetType() == typeof(double)) {
+        if(double.IsNaN((double)obj))
+          Interop.duk_push_nan(_ctx);
+        else
+          Interop.duk_push_number(_ctx, (double)obj);
+      } else if(obj.GetType() == typeof(int))
+        Interop.duk_push_int(_ctx, (int)obj);
+
+      else if(obj.GetType() == typeof(uint))
+        Interop.duk_push_uint(_ctx, (uint)obj);
+
+      else if(obj.GetType() == typeof(string))
+        Interop.duk_push_string(_ctx, (string)obj);
+
+      else if(obj.GetType().IsArray) {
+        var arrId = Interop.duk_push_array(_ctx);
+        uint i = 0;
+        foreach(object o in (Array)obj) {
+          Push(o);
+          Interop.duk_put_prop_index(_ctx, arrId, i);
+          i++;
+        }
+      }
+
+      else {
+        /*var typeInfo = obj.GetType().GetTypeInfo();
+        foreach(MemberInfo memberInfo in typeInfo.GetMembers()) {
+          
+        }*/
+        throw new NotImplementedException("C# to JS Objects not implemented");
+      }
+    }
+
   }
 
 }

@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard1.1</TargetFramework>
+    <TargetFramework>netstandard1.5</TargetFramework>
     <Description>Duktape ECMAScript engine for .NET</Description>
     <Company>Celones</Company>
     <Product>Duktape.NET</Product>
